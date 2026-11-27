@@ -1,0 +1,45 @@
+libmpv for Windows x64 (mpv 0.42.0, LGPL-2.1-or-later, -Dgpl=false)
+Toolchain: x86_64-w64-mingw32-gcc-posix (GCC) 13-posix; mingw-w64 13.0.0-2ubuntu1
+
+== Sources (name | file | sha256 | license | needed by) ==
+mpv | mpv-0.42.0.tar.gz | bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd | LGPL-2.1-or-later (built with -Dgpl=false) | listed
+ffmpeg | ffmpeg-9.1.tar.xz | 1a4d394ae63d190a526cd052eb4415c156b5c5e2df37efab41a7de0b8fde2433 | LGPL-2.1-or-later (no --enable-gpl/--enable-version3/--enable-nonfree) | mpv
+libplacebo | libplacebo-7.387.0.tar.gz | f9e62d3774a9c4cfd198ec3abaa88294aaade2e31c04d5ab02bcf4abc98b1df5 | LGPL-2.1-or-later | mpv (gpu-next)
+fast_float | fast_float-97b54ca.tar.gz | 2b132274539286e41f37857cac22aa8441d21bd86d55de825a3342b149f66801 | Apache-2.0 OR MIT OR BSL-1.0 (header only; libplacebo submodule at its pinned commit) | libplacebo
+Vulkan-Headers | Vulkan-Headers-74d8a6c.tar.gz | 75967a8288ff16044a86d1af462b96d2e75c435937efb75f2bb4102ab0382f29 | Apache-2.0 OR MIT (headers only; libplacebo submodule commit, compiled for its Vulkan stubs, no Vulkan code in the build) | libplacebo
+dav1d | dav1d-1.5.5.tar.xz | ca96b1d0ba3f01f55de7231d775892b64994ba061aaeeaaa4f662a390b3abf9e | BSD-2-Clause | ffmpeg (AV1)
+libass | libass-0.17.5.tar.xz | 2dca25c0e0c837ddf00b52011b3f82cac1e4ddd3ad018227806b0c2288864acc | ISC | mpv
+freetype | freetype-2.15.0.tar.xz | 93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5 | FTL (BSD-style with credit clause; chosen from the FTL/GPL-2.0 dual license) | libass, harfbuzz
+harfbuzz | harfbuzz-15.2.0.tar.xz | e2ec49090744383cdbe7df808c1cedaafba06a97be8dc4211fe546ba585f12cb | MIT | libass
+fribidi | fribidi-1.0.18.tar.xz | 1de5e8073d035388b71d0b2d452b1da1f8caeea8a7702997b401fe1b6250727f | LGPL-2.1-or-later | libass
+zlib | zlib-1.3.2.tar.xz | d7a0654783a4da529d1bb793b7ad9c3318020af77667bcae35f95d0e42a792f3 | Zlib | ffmpeg, mpv, freetype
+libiconv | libiconv-1.19.tar.gz | 88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6 | LGPL-2.1-or-later (library only; the GPL iconv tool is not built) | ffmpeg, mpv
+SPIRV-Cross | SPIRV-Cross-1.4.363.0.tar.gz | f708982e88b763ef5b0394ed468fc2c3628f68cdab89f2e7a946cd628c04e721 | Apache-2.0 | mpv, libplacebo (GLSL to HLSL for d3d11)
+shaderc | shaderc-2026.4.tar.gz | f06ce5bcca94e5df7f34e115743597d0ad2e13c5fe9213c67dc8c76031241947 | Apache-2.0 | mpv, libplacebo (GLSL to SPIR-V)
+glslang | glslang-e1b562a.tar.gz | 907174a24713c6202c146f164bf81783f1fbc79c8cb821a30f18f159eb980312 | BSD-3-Clause, Apache-2.0, MIT (GPL-3.0 only in bison output under the Bison exception) | shaderc (commit pinned by shaderc v2026.4 DEPS)
+SPIRV-Tools | SPIRV-Tools-ef96ed7.tar.gz | 82c62146083fd558735a3171cf97cfc47903ca7d368482e87f94bd44883c0f00 | Apache-2.0 | shaderc (pinned by shaderc DEPS)
+SPIRV-Headers | SPIRV-Headers-04fd3ca.tar.gz | 392f4801409aad9c4f1b77745f179952fd6264e4c8bd0fc1bc45dfa6807bf6d0 | MIT-style (Khronos) | shaderc (pinned by shaderc DEPS)
+
+All libraries above are statically linked into libmpv-2.dll. The app must credit the
+FreeType Project (FTL clause) and supply the sources/relinking material for the LGPL parts.
+== System components (not redistributed) ==
+Audio: WASAPI. Video: Direct3D 11 (d3dcompiler_47.dll). Hardware decoding: D3D11VA/DXVA2. TLS: schannel.
+
+== mpv features (config.h) ==
+HAVE_BUILD_DATE HAVE_CPLUGINS HAVE_D3D11 HAVE_D3D9_HWACCEL HAVE_D3D_HWACCEL HAVE_DOS_PATHS HAVE_DXGI_DEBUG_D3D11 HAVE_FFMPEG HAVE_GL HAVE_GL_DXINTEROP HAVE_GL_DXINTEROP_D3D9 HAVE_GLOB HAVE_GLOB_WIN32 HAVE_GL_WIN32 HAVE_ICONV HAVE_LIBASS HAVE_LIBPLACEBO HAVE_SHADERC HAVE_SPIRV_CROSS HAVE_VECTOR HAVE_WASAPI HAVE_WIN32 HAVE_WIN32_DESKTOP HAVE_WIN32_THREADS HAVE_ZLIB 
+
+== FFmpeg config ==
+#define FFMPEG_LICENSE "LGPL version 2.1 or later"
+#define CONFIG_LIBDAV1D 1
+#define CONFIG_ICONV 1
+#define CONFIG_SCHANNEL 1
+#define CONFIG_ZLIB 1
+#define CONFIG_D3D11VA 1
+#define CONFIG_DXVA2 1
+#define CONFIG_GPL 0
+#define CONFIG_NONFREE 0
+#define CONFIG_VERSION3 0
+
+== sha256 / size ==
+edb1c55672719f3f4da678ff4957a3215defeba9a6406e67bac0ba45f81cbed3  libmpv-2.dll
+46368509 bytes
